@@ -63,6 +63,11 @@ object TAGMLTokenizer {
     val endTag = (markStart then char('<') then tagName then char(']') then markEnd)
             .toLSPToken { EndMarkupToken(it.first.first.second) }
 
+    fun specificEndTag(endTagName: String): Parser<Char, LSPToken> {
+        return (markStart then char('<') then string(endTagName) then char(']') then markEnd)
+            .toLSPToken { EndMarkupToken(endTagName) }
+    }
+
     private val suspendTag = (markStart then string("<-") then tagName then char(']') then markEnd)
             .toLSPToken { SuspendMarkupToken(it.first.first.second) }
 
