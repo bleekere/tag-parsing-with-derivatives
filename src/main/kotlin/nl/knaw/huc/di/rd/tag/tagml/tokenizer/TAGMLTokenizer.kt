@@ -66,7 +66,7 @@ object TAGMLTokenizer {
     private val suspendTag = (markStart then string("<-") then tagName then char(']') then markEnd)
             .toLSPToken { SuspendMarkupToken(it.first.first.second) }
 
-    private val text = (markStart then (not(specialChar).map { it.toString() } or escapedSpecialChar).rep then markEnd)
+    val text = (markStart then (not(specialChar).map { it.toString() } or escapedSpecialChar).rep then markEnd)
             .toLSPToken { TextToken(it.first.second.joinToString(separator = "")) }
 
     val startTextVariation = string("<|").toLSPToken { StartTextVariationToken }
