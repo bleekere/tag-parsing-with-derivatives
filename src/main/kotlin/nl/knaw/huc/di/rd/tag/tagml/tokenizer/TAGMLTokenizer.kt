@@ -54,7 +54,7 @@ object TAGMLTokenizer {
     private val namespaceDefinition = (string("[!ns ") then whitespace thenRight namespaceIdentifier then whitespace then url thenLeft char(']'))
             .toLSPToken { NameSpaceIdentifierToken(it.first.first, URL(it.second.toList().joinToString(separator = ""))) }
 
-    private val startTag = (markStart then char('[') then tagName then char('>') then markEnd)
+    public val startTag = (markStart then char('[') then tagName then char('>') then markEnd)
             .toLSPToken { StartMarkupToken(it.first.first.second) }
 
     private val resumeTag = (markStart then string("[+") then tagName then char('>') then markEnd)
